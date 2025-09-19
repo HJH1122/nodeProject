@@ -1,14 +1,16 @@
 <template>
   <div class="app">
-    <GroundComponent />
+    <Ground />
   </div>
 </template>
 
 <script>
-import GroundComponent from './components/Ground.vue';
+import Ground from './components/Ground.vue';
+
+
 
 export default {
-  components:{GroundComponent}
+  components:{Ground}
 }
 </script>
 
