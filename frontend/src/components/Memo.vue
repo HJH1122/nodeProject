@@ -12,23 +12,23 @@
 
 <script>
 import { reactive } from 'vue';
+import axios from 'axios';
 
 export default{
     setup(){
         const state = reactive({
-            data: [
-            "메모 내용1",
-            "메모 내용2",
-            "메모 내용3",
-            "메모 내용4",
-            "메모 내용5",
-        ]
+            data: []
         });
 
 
         const add = () =>{
             state.data.push('추가된 메모 내용');
         }
+
+        axios.get('/api/memos').then((res) =>{
+            state.data = res.data;
+        })
+
         return {state, add};
     }
 }
@@ -45,14 +45,14 @@ export default{
         text-align: right;
     }
     ul{
-        border-top: 1px solid #eee;
         list-style: none;
-        padding: 15px 0;
+        padding: 15px;
         margin: 0;
 
         li{
-            padding: 5px 10px;
-            margin: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #eee;
         }
     }
 }
