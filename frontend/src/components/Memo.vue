@@ -24,13 +24,18 @@ export default{
         const add = () =>{
             const content = prompt('내용을 입력해주세요.');
 
+            if(!content){
+                alert('내용을 입력해주세요.');
+                return add();
+            }
+
             axios.post('/api/memos', {content}).then((res) => {
                 state.data = res.data;
             })
         }
 
         const edit = (id) =>{
-            const content = prompt('내용을 입력해주세요.' , state.data[idx]);
+            const content = prompt('내용을 입력해주세요.' , state.data.find(d=> d.id === id).content);
             axios.put('/api/memos/' + id, {content}).then((res) => {
                 state.data = res.data;
             })

@@ -13,15 +13,18 @@ app.get('/api/memos', async (req, res) => {
   res.send(result)
 })
 
-app.post('/api/memos', (req, res) =>{
+app.post('/api/memos', async (req, res) =>{
+  await database.run(`INSERT INTO memos (content) VALUES (?)`, [req.body.content]);
   
-  memos.push(req.body.content);
-  res.send(memos)
+  const result = await database.run('SELECT * from memos');
+  res.send(result)
 });
 
-app.put('/api/memos/:idx', (req, res) =>{
-  memos[req.params.idx] = req.body.content;
-  res.send(memos);
+app.put('/api/memos/:id', async (req, res) =>{
+  await database.run(`UPDATE memos SET content = ? WHERE id = ?`, [req.body.content, req.params.id]);
+  
+  const result = await database.run('SELECT * from memos');
+  res.send(result)
 });
 
 app.listen(port, () => {
